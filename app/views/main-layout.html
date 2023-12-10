@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+    <link rel="stylesheet" href="../../public/css/stylesheet.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="nav-bar">
+                <div class="logo">
+                    My Todo List
+                </div>
+                <div class="buttons">
+                    <div class="login-button">
+                        <span>Login</span>
+                    </div>
+                    <div class="signup-button">
+                        <span>Sign Up</span>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <div class="hero-text">
+            <h1>Mozz's To-do</h1>
+            <p>Let's help your task management</p>
+        </div>
+        <div class="form">
+            <h2>Register</h2>
+            <form action="post">
+                <div class="name">
+                    <input type="text" class="form-first-name" placeholder="First Name" name="firstName">
+                    <input type="text" class="form-last-name" placeholder="Last Name" name="lastName">
+                </div>
+                <div>
+                    <input type="text" placeholder="Username" name="username">
+                    <input type="text" placeholder="Phone Number"name=phoneNumber>
+                    <input type="text" placeholder="Password" name="password">
+                    <input type="text" placeholder="Confirm Password" name="confirmPassword">
+                    <input type="submit" class="btn btn-register" value="Register">
+                </div>
+                <div>
+                    <a href="#" class="forgot-password">Forgot Password?</a>
+                    <div class="form-border"></div>
+                    <a href="#" class="btn btn-login">Login</a>
+                </div>
+            </form>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,148 @@
+*{
+    margin: 0px;
+}
+
+body{
+    margin: auto;
+    max-width: 1920px;
+    height: 890px;
+    background-image: url('../assets/background.png');
+}
+a{
+    text-decoration: none;
+}
+/* start-doing-css-in-nav */
+nav{
+    color:#FFF;
+    width:100%;
+    height:100px;
+    background: #FF94E7;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.nav-bar{
+    height:100%;
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 70px;
+}
+
+.logo{
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    font-size: 32px;
+    font-weight: 700;
+    line-height: normal;
+}
+.logo:hover{
+    cursor: pointer;
+}
+.nav-bar .buttons{
+    display: flex;
+}
+.nav-bar .buttons:hover{
+    cursor: pointer;
+}
+.signup-button{
+    margin-left:30px;
+}
+
+.login-button, .signup-button{
+    width:80px;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    text-align: center;
+    line-height: normal;
+    border-radius: 30px;
+    background: #F340E1;
+    padding : 5px 0;
+}
+.buttons div:hover{
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+/* end-doing-css-in-nav */
+
+/* start-doing-css-in-main */
+main{
+    width: 100%;
+    height: 100%;
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+.hero-text{
+    margin-left:162px;
+    font-size: 64px;
+}
+.hero-text p{
+    font-size:24px;
+}
+.form{
+    width: 568px;
+    margin-right:70px;
+    border-radius: 10px;
+    background: #FFEBFF;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+.form h2{
+    color: #000;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-align: center;
+    margin-top: 20px;
+}
+form div{
+    display: flex; 
+    flex-direction: column;
+}
+form input{
+    border-radius: 10px;
+    border: 1px solid #FF9EEA;
+    background: #FFE7FD;
+    height: 52px;
+    margin:0px 20px 20px 20px;
+    padding-left:10px;
+}
+.name{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    margin:20px;
+}
+.name input{
+    width: 240px;
+    flex-shrink: 0;
+    margin:0px;
+}
+.btn-login{
+    max-height:48px;
+    min-height: 48px;
+    margin:0px 20px 20px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.btn{
+    color: white;
+    border-radius: 10px;
+    background: #F340E1;
+}
+.btn:hover{
+    cursor: pointer;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+form .forgot-password {
+    margin-left:20px;
+    padding-bottom:20px;
+}
+
+.form-border{
+    margin-bottom:20px;
+    margin: 0 20px 20px 20px;
+    border-bottom: 1px solid  #FF9EEA;
+}
+/* end-doing-css-in-main */
