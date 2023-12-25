@@ -44,30 +44,30 @@ exports.userLogin = async (req, res) => {
     try {
         const {username, password} = req.body
         //check if the user exist
-        const user = await Users.findOne({ where: { username } })
-        if(!user){
+        const userInformation = await Users.findOne({ where: { username } })
+        if(!userInformation){
             res.status(404).send({
                 message : "User not found"
             })
             return
         }
         //check if inputed password match with password in db
-        const passwordMatch = await bcrypt.compare(password, user.password)
+        const passwordMatch = await bcrypt.compare(password, userInformation.password)
         if(!passwordMatch){
             res.status(401).send({
                 message : "Wrong username or password"
             })
             return
         }
-        const token = jwt.sign({ user: { id: user.id, username: user.username } }, process.env.ACCESS_SECRET_KEY, { expiresIn: '1h' });
+        const token = jwt.sign({ user: { id: userInformation.id, username: userInformation.username } }, process.env.ACCESS_SECRET_KEY, { expiresIn: '1h' });
         res.status(200).send({
             message : "Login successfully",
-            id : user.id,
+            id : userInformation.id,
             token
         })
     } catch (error) {
         res.status(500).send({
-            error: error.message
+            error: error
         })
     }
 }
@@ -162,6 +162,41 @@ exports.deleteUserProfile = async (req, res) => {
         await Users.destroy({where : {id}})
         res.status(200).send({
             message : "Data has ben deleted"
+        })
+    } catch (error) {
+        res.status(500).send({
+            error : error.message
+        })
+    }
+}
+
+exports.userChangePassword = async(req, res) => {
+    try {
+        const {oldPassword, newPassword} = req.body
+        const id = req.user.id
+
+        //check if the data is exist and the password match
+        const userInformation = await Users.findOne({ where: {id} })
+        const passwordMatch = await bcrypt.compare(oldPassword, userInformation.password)
+
+        if(!userInformation){
+            res.status(404).send({
+                error : "User not found"
+            })
+            return
+        }
+        if(!passwordMatch){
+            res.status(401).send({
+                error : "Wrong old password"
+            })
+            return
+        }
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(newPassword, salt);
+
+        await Users.update({password : hashedPassword}, {where : {id}})
+        res.status(200).send({
+            message : "Change password successfully"
         })
     } catch (error) {
         res.status(500).send({
