@@ -1,8 +1,10 @@
 const bcrypt = require('bcrypt')
 const Users = require('../models/userModel.js')
+const Tokens = require('../models/tokenModel.js')
 const {generateUUID} = require('../helper/generateId.js')
 const jwt = require('jsonwebtoken')
 require('dotenv').config()
+
 // for user register
 exports.userRegister = async (req, res) => {
     try {
@@ -59,7 +61,7 @@ exports.userLogin = async (req, res) => {
             })
             return
         }
-        const token = jwt.sign({ user: { id: userInformation.id, username: userInformation.username } }, process.env.ACCESS_SECRET_KEY, { expiresIn: '1h' });
+        const token = jwt.sign({ user: { id: userInformation.id, username: userInformation.username } }, process.env.ACCESS_SECRET_KEY, { expiresIn: '15m' });
         res.status(200).send({
             message : "Login successfully",
             id : userInformation.id,
@@ -141,6 +143,7 @@ exports.editUserProfile = async (req, res) => {
     }
 }
 
+//for delete user
 exports.deleteUserProfile = async (req, res) => {
     try {
         const {id} = req.params
@@ -170,7 +173,8 @@ exports.deleteUserProfile = async (req, res) => {
     }
 }
 
-exports.userChangePassword = async(req, res) => {
+//for chage password
+exports.userChangePassword = async (req, res) => {
     try {
         const {oldPassword, newPassword} = req.body
         const id = req.user.id
@@ -197,6 +201,31 @@ exports.userChangePassword = async(req, res) => {
         await Users.update({password : hashedPassword}, {where : {id}})
         res.status(200).send({
             message : "Change password successfully"
+        })
+    } catch (error) {
+        res.status(500).send({
+            error : error.message
+        })
+    }
+}
+
+//for logout
+exports.userLogout = async (req, res) => {
+    try {
+        //get the token
+        const token = req.headers.authorization
+        //find the token
+        const tokenInformation = await Tokens.findOne({ where: { token } })
+        if(tokenInformation){
+            res.status(400).send({
+                message : 'You already logout'
+            })
+            return
+        }
+        //add to blacklist table
+        await Tokens.create({token})
+        res.status(201).send({
+            message : 'Logout successful'
         })
     } catch (error) {
         res.status(500).send({

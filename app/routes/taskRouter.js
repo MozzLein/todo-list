@@ -1,8 +1,9 @@
 const express = require('express')
 const router = express.Router()
 const {getAllTask, addTask, deleteTask, editTask} = require("../controllers/taskController")
-const {userRegister, userLogin, userProfile, editUserProfile, deleteUserProfile, userChangePassword} = require("../controllers/userController")
+const {userRegister, userLogin, userProfile, editUserProfile, deleteUserProfile, userChangePassword, userLogout} = require("../controllers/userController")
 const {verifyToken} = require("../middleware/authMiddleware")
+// const {checkTokenBlacklist} = require("../middleware/blacklistTokenMiddleware")
 
 router.get('/main',verifyToken, getAllTask)
 router.post('/addtask',verifyToken, addTask)
@@ -17,4 +18,5 @@ router.get('/profile/:id', userProfile)
 router.put('/profile/edit/:id', verifyToken, editUserProfile)
 router.delete('/profile/delete/:id', verifyToken, deleteUserProfile)
 router.post('/profile/change-password/:id', verifyToken, userChangePassword)
+router.post('/logout', verifyToken, userLogout)
 module.exports = router
